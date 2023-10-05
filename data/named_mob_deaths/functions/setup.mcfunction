@@ -1,0 +1,1 @@
+scoreboard objectives add namedmobdeaths_customnameexists dummy

@@ -1,0 +1,2 @@
+kill @e[type=marker,tag=namedmobdeaths_trakingmarker]
+scoreboard objectives remove namedmobdeaths_customnameexists
