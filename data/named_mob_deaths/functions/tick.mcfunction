@@ -6,7 +6,8 @@ execute as @e[type=#named_mob_deaths:mobs,scores={namedmobdeaths_customnameexist
 execute as @e[type=#named_mob_deaths:mobs,tag=namedmobdeaths_hascustomname,tag=!namedmobdeaths_ready] at @s anchored eyes run function named_mob_deaths:add_traking_marker
 
 # Update custom name stored in tracking marker
-execute as @e[type=#named_mob_deaths:mobs,tag=namedmobdeaths_ready] on passengers if entity @s[type=marker,tag=namedmobdeaths_trakingmarker] run data modify entity @s data.namedmobdeaths_name set from entity @e[type=#named_mob_deaths:mobs,tag=namedmobdeaths_ready,sort=nearest,limit=1] CustomName
+execute as @e[type=#named_mob_deaths:mobs,tag=namedmobdeaths_ready] at @s anchored eyes if entity @e[type=marker,tag=namedmobdeaths_trakingmarker,distance=..1.5] run data modify entity @e[type=marker,tag=namedmobdeaths_trakingmarker,sort=nearest,limit=1] data.namedmobdeaths_name set from entity @s CustomName
+#execute as @e[type=#named_mob_deaths:mobs,tag=namedmobdeaths_ready] on passengers if entity @s[type=marker,tag=namedmobdeaths_trakingmarker] run data modify entity @s data.namedmobdeaths_name set from entity @e[type=#named_mob_deaths:mobs,tag=namedmobdeaths_ready,sort=nearest,limit=1] CustomName
 
 # Create trigger
 tag @e[type=marker,tag=namedmobdeaths_trakingmarker] add namedmobdeaths_trigger
