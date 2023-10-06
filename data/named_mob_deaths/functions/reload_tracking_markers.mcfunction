@@ -6,5 +6,6 @@ tag @e[tag=namedmobdeaths_ready] remove namedmobdeaths_ready
 execute as @e[type=#named_mob_deaths:mobs] store success score @s namedmobdeaths_customnameexists run data get entity @s CustomName
 execute as @e[type=#named_mob_deaths:mobs,scores={namedmobdeaths_customnameexists=1}] if entity @s[tag=!namedmobdeaths_ready] at @s anchored eyes run function named_mob_deaths:add_traking_marker
 
-# Set the tickCount to 0
+# Reset tracking
+advancement revoke @a only named_mob_deaths:event_nametag_used
 scoreboard players set #tickCount namedmobdeaths_variables 0
