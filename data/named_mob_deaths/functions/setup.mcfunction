@@ -1,10 +1,10 @@
 # Create scoreboards
-scoreboard objectives add namedmobdeaths_customnameexists dummy
-scoreboard objectives add namedmobdeaths_variables dummy
+scoreboard objectives add namedmobdeaths_values dummy
+scoreboard objectives add namedmobdeaths_lookup dummy
 
-# Setup Variables
-scoreboard players set #tickCount namedmobdeaths_variables 0
-scoreboard players set #reloadDelay namedmobdeaths_variables 200
+# Set any values
+scoreboard players set #CONST_0 namedmobdeaths_values 0
+execute unless score #lookupIndex namedmobdeaths_values >= #CONST_0 namedmobdeaths_values run scoreboard players set #lookupIndex namedmobdeaths_values 0
 
 # Setup the tracking markers initially
 function named_mob_deaths:reload_tracking_markers
