@@ -1,18 +1,24 @@
 # run as each tracking marker
 
-# Get the lookup index
-execute store result score #searchLookupIndex namedmobdeaths_values run scoreboard players get @s namedmobdeaths_lookup
-
-# Add the trigger if the tracked entity does not exist
-execute as @e[tag=namedmobdeaths_ready] if score @s namedmobdeaths_lookup = #searchLookupIndex namedmobdeaths_values run scoreboard players set #mobAlive namedmobdeaths_values 1
-execute if score #mobAlive namedmobdeaths_values = #CONST_0 namedmobdeaths_values run tag @s add namedmobdeaths_trigger
-
-# Reset mobAlive check
+# Reset the check score
 scoreboard players set #mobAlive namedmobdeaths_values 0
 
+# Add the trigger if the tracked entity does not exist
+execute on origin if entity @s run scoreboard players set #mobAlive namedmobdeaths_values 1
+execute if score #mobAlive namedmobdeaths_values = #CONST_0 namedmobdeaths_values run tag @s add namedmobdeaths_trigger
+
 # Update the name field if the mob does exist
-execute as @e[tag=namedmobdeaths_ready] if score @s namedmobdeaths_lookup = #searchLookupIndex namedmobdeaths_values run data modify storage named_mob_deaths:storage mobData set from entity @s
-execute if entity @s[tag=!namedmobdeaths_trigger] run data modify entity @s data.namedmobdeaths_mobdata set from storage named_mob_deaths:storage mobData
+execute on origin run data modify storage named_mob_deaths:storage CustomName set from entity @s CustomName
+execute if entity @s[tag=!namedmobdeaths_trigger] run data modify entity @s CustomName set from storage named_mob_deaths:storage CustomName
+
+# Update the tracking marker position
+execute on origin run data modify storage named_mob_deaths:storage CustomName set from entity @s CustomName
+execute on origin run data modify storage named_mob_deaths:storage Pos set from entity @s Pos
+execute if entity @s[tag=!namedmobdeaths_trigger] run data modify entity @s CustomName set from storage named_mob_deaths:storage CustomName
+execute if entity @s[tag=!namedmobdeaths_trigger] run data modify entity @s Pos set from storage named_mob_deaths:storage Pos
 
 # Execute Trigger
 execute if entity @s[tag=namedmobdeaths_trigger] run function named_mob_deaths:death_trigger
+
+# Update the cloud age
+data modify entity @s Age set value 0
